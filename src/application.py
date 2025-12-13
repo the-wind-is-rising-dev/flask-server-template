@@ -85,9 +85,6 @@ class FlaskApp(Flask):
         """
         配置跨域并注册蓝图
         """
-        """
-        配置跨域并注册蓝图
-        """
         if cors_config is None:
             cors_config = {
                 "origins": "*",
