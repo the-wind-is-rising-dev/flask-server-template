@@ -53,7 +53,7 @@ class FlaskApp(Flask):
             f'{'=' * (len(path_log) + 3)}')
 
     def process_response(self, response):
-        """处理响应数据"""
+        """记录响应信息"""
         duration = datetime.now() - self.request_duration_local.start_time
         path_log = f'{'=' * 40} 响应信息: {request.path} {'=' * 40}'
         if response.is_json:
