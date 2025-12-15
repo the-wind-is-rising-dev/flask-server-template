@@ -40,7 +40,7 @@ class FlaskApp(Flask):
     def log_request_info(self):
         """记录请求信息"""
         self.request_duration_local.start_time = datetime.now()
-        path_log = f'{'=' * 40} 请求路径: {request.path} {'=' * 40}'
+        path_log = f'{"=" * 40} 请求路径: {request.path} {"=" * 40}'
         headers_log = '\n'.join([f'{key}: {value}' for key, value in request.headers.items()])
         request_body = request.get_json() if request.is_json else None
         request_body_str = json.dumps(request_body, ensure_ascii=False)
@@ -53,12 +53,12 @@ class FlaskApp(Flask):
             f'{headers_log}\n'
             f'请求参数/args: {json.dumps(request.args, ensure_ascii=False)}\n'
             f'请求体/json: {request_body_str}\n'
-            f'{'=' * (len(path_log) + 3)}')
+            f'{"=" * (len(path_log) + 3)}')
 
     def process_response(self, response):
         """记录响应信息"""
         duration = datetime.now() - self.request_duration_local.start_time
-        path_log = f'{'=' * 40} 响应信息: {request.path} {'=' * 40}'
+        path_log = f'{"=" * 40} 响应信息: {request.path} {"=" * 40}'
         if response.is_json:
             resp_result = json.dumps(response.get_json(), ensure_ascii=False)
         else:
@@ -71,7 +71,7 @@ class FlaskApp(Flask):
             f'请求路径: {request.path} 请求方法: {request.method}\n'
             f'响应状态码: {response.status_code} 耗时: {duration.total_seconds():.3f}s\n'
             f'响应结果: {resp_result}\n'
-            f'{'=' * (len(path_log) + 3)}')
+            f'{"=" * (len(path_log) + 3)}')
         return response
 
     def handle_exception(self, ex: Exception):
