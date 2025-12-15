@@ -43,13 +43,16 @@ class FlaskApp(Flask):
         path_log = f'{'=' * 40} 请求路径: {request.path} {'=' * 40}'
         headers_log = '\n'.join([f'{key}: {value}' for key, value in request.headers.items()])
         request_body = request.get_json() if request.is_json else None
+        request_body_str = json.dumps(request_body, ensure_ascii=False)
+        if len(request_body_str) > 1024:
+            request_body_str = f'{request_body_str[0:256]}...{request_body_str[-256:]}'
         print(
             f'请求信息\n'
             f'{path_log}\n'
             f'请求方法: {request.method}\n'
             f'{headers_log}\n'
             f'请求参数/args: {json.dumps(request.args, ensure_ascii=False)}\n'
-            f'请求体/json: {json.dumps(request_body, ensure_ascii=False)}\n'
+            f'请求体/json: {request_body_str}\n'
             f'{'=' * (len(path_log) + 3)}')
 
     def process_response(self, response):
