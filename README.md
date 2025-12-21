@@ -16,22 +16,20 @@ Python 的 Flask 服务模版
 
 ```
 flask-server-template/
-├── src/
-│   ├── config/
-│   │   ├── __init__.py
-│   │   └── log_config.py       # 日志配置
-│   ├── controller/
-│   │   ├── __init__.py
-│   │   ├── result.py           # 统一返回结果类
-│   │   └── test_controller.py  # 测试控制器
-│   ├── service/
-│   │   └── __init__.py
-│   ├── utils/
-│   │   ├── __init__.py
-│   │   └── json_codec.py       # 自定义 JSON 编解码器
+├── config/
 │   ├── __init__.py
-│   └── application.py          # 应用入口
+│   └── log_config.py       # 日志配置
+├── controller/
+│   ├── __init__.py
+│   ├── result.py           # 统一返回结果类
+│   └── test_controller.py  # 测试控制器
+├── service/
+│   └── __init__.py
+├── utils/
+│   ├── __init__.py
+│   └── json_codec.py       # 自定义 JSON 编解码器
 ├── .gitignore
+├── application.py          # 应用入口
 ├── LICENSE
 └── README.md
 ```
@@ -45,7 +43,7 @@ flask-server-template/
 pip install flask flask-cors numpy
 
 # 运行应用
-python -m src.application
+python -m application
 ```
 
 应用将在 `http://0.0.0.0:5001` 运行
@@ -63,7 +61,7 @@ python -m src.application
 示例使用：
 
 ```python
-from src.controller.result import Result
+from controller import Result
 
 # 返回成功结果
 return Result.success("操作成功")
@@ -115,9 +113,10 @@ return Result.fail("操作失败")
 
 ```python
 from flask import Blueprint
-from src.controller.result import Result
+from controller import Result
 
 new_bp = Blueprint('new', __name__, url_prefix='/new')
+
 
 @new_bp.route('/example', methods=['GET'])
 def example():

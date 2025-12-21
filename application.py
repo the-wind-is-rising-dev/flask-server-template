@@ -8,9 +8,9 @@ from datetime import datetime
 from flask import Flask, Blueprint, request
 from flask_cors import CORS
 
-from src.config.log_config import log_config
-from src.controller.result import Result
-from src.utils.json_codec import CustomJSONProvider
+from config.log_config import log_config
+from controller.result import Result
+from utils.json_codec import CustomJSONProvider
 
 
 class FlaskApp(Flask):
@@ -21,7 +21,7 @@ class FlaskApp(Flask):
 
         # 注册蓝图
         self.blueprints_to_register = []
-        from src.controller.test_controller import test_bp
+        from controller.test_controller import test_bp
         self.add_blueprint(bp=test_bp)
 
         # 添加请求前和响应后处理逻辑

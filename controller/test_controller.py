@@ -3,7 +3,7 @@ from datetime import datetime
 import numpy as np
 from flask import Blueprint, request
 
-from src.controller.result import Result
+from controller.result import Result
 
 """
 创建蓝图
