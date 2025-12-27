@@ -78,7 +78,10 @@ class FlaskApp(Flask):
         """处理未捕获的异常"""
         traceback.print_exc()
         # 返回自定义错误响应
-        return Result.fail(f'{ex}'), 500
+        status_code = 500
+        if '404 Not Found' in str(ex):
+            status_code = 404
+        return Result.fail(f'{ex}'), status_code
 
     def add_blueprint(self, bp: Blueprint):
         """添加需要注册的蓝图"""
