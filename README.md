@@ -179,6 +179,10 @@ def example():
 - flask-cors
 - numpy
 
+## 贡献
+
+欢迎大家提 issues 和 pull requests，共同改进这个 Flask 服务模板！
+
 ## 许可证
 
 MIT License
