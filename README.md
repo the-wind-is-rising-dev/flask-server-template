@@ -27,7 +27,8 @@ flask-server-template/
 │   └── __init__.py
 ├── utils/
 │   ├── __init__.py
-│   └── json_codec.py       # 自定义 JSON 编解码器
+│   ├── json_codec.py       # 自定义 JSON 编解码器
+│   └── date_util.py        # 时间转换工具
 ├── .gitignore
 ├── application.py          # 应用入口
 ├── LICENSE
@@ -100,6 +101,46 @@ return Result.fail("操作失败")
 ### 6. 跨域支持
 
 默认支持所有跨域请求，可通过配置自定义跨域规则
+
+### 7. 时间转换工具
+
+提供了丰富的时间转换功能，包括：
+
+- 字符串与 datetime/struct_time 类型转换
+- datetime 与 struct_time 类型互转
+- 时间格式格式化
+- 秒级和毫秒级时间戳获取
+
+示例使用：
+
+```python
+from utils.date_util import (
+    parse_datetime, format_datetime,
+    timestamp_seconds, timestamp_milliseconds
+)
+
+# 将字符串转换为 datetime 对象
+dt = parse_datetime('2025-12-29 00:00:00')
+
+# 将 datetime 对象转换为字符串
+str_time = format_datetime(dt, '%Y-%m-%d')
+
+# 获取秒级时间戳
+sec_ts = timestamp_seconds(dt)
+
+# 获取毫秒级时间戳
+ms_ts = timestamp_milliseconds(dt)
+```
+
+主要方法：
+
+- `parse_datetime(times: str, format: str = DATE_TIME_FORMAT) -> datetime | None`: 将字符串转换为 datetime 对象
+- `parse_struct_time(times: str, format: str = DATE_TIME_FORMAT) -> struct_time | None`: 将字符串转换为 struct_time 对象
+- `format_datetime(times: datetime, format: str = DATE_TIME_FORMAT) -> str | None`: 将 datetime 对象转换为字符串
+- `format_struct_time(time_struct: struct_time, format: str = DATE_TIME_FORMAT) -> str | None`: 将 struct_time 对象转换为字符串
+- `format_time(times: datetime | struct_time, format: str = DATE_TIME_FORMAT) -> str | None`: 统一的时间格式化方法
+- `timestamp_seconds(times: datetime | struct_time) -> int | None`: 获取秒级时间戳
+- `timestamp_milliseconds(times: datetime | struct_time) -> int | None`: 获取毫秒级时间戳
 
 ## 开发指南
 

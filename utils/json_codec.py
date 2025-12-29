@@ -1,16 +1,22 @@
 import json
 from datetime import datetime
 from enum import Enum
+from time import struct_time
 
 import numpy as np
 from flask.json.provider import DefaultJSONProvider
+
+from utils.date_util import format_time
 
 
 def codec(obj):
     """ 自定义编解码器，特殊对象转换 """
     if isinstance(obj, datetime):
         # 处理日期时间对象
-        return obj.strftime("%Y-%m-%d %H:%M:%S")
+        return format_time(obj)
+    if isinstance(obj, struct_time):
+        # 处理日期时间对象
+        return format_time(obj)
     elif isinstance(obj, Enum):
         # 处理枚举对象
         return obj.name
